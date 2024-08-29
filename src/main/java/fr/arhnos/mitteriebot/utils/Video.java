@@ -2,6 +2,7 @@ package fr.arhnos.mitteriebot.utils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Video {
 	private String url;
@@ -47,5 +48,24 @@ public class Video {
 
 	public void setTimeOut(LocalTime timeOut) {
 		this.timeOut = timeOut;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(url);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Video other = (Video) obj;
+		return Objects.equals(url, other.url);
 	}	
+	
+	
 }

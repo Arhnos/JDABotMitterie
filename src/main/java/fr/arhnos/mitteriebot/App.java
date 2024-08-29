@@ -1,22 +1,24 @@
 package fr.arhnos.mitteriebot;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import fr.arhnos.mitteriebot.commands.ManCommand;
 import fr.arhnos.mitteriebot.commands.PingCommand;
 import fr.arhnos.mitteriebot.commands.RandomvideoCommand;
+import fr.arhnos.mitteriebot.commands.SetupCommand;
 import fr.arhnos.mitteriebot.commands.SubscribeCommand;
 import fr.arhnos.mitteriebot.commands.UnsubscribeCommand;
 import fr.arhnos.mitteriebot.utils.ImportToken;
+import fr.arhnos.mitteriebot.utils.PollingDatabase;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class App extends ListenerAdapter {
+	public static JDA jda;
 	private static String token = new ImportToken().getToken();
 	private static Collection<GatewayIntent> perms = getListOfPermissions();
 	
@@ -24,7 +26,8 @@ public class App extends ListenerAdapter {
 		JDABuilder bot = JDABuilder.createLight(token, perms);
 		bot.setActivity(Activity.playing("la roulette russe"));
 		bot.addEventListeners(new App());
-		bot.build();
+		jda = bot.build();
+		new PollingDatabase(jda);
 		
 	}
 	
@@ -62,6 +65,10 @@ public class App extends ListenerAdapter {
 			System.out.println("Commande RANDOMVIDEO lancée");
 			RandomvideoCommand randomvideoCommand = new RandomvideoCommand(event);
 			event.getChannel().sendMessageEmbeds(randomvideoCommand.getOutputEmbed()).queue();
+		} else if(message.startsWith("!setup")) {
+			System.out.println("Commande SETUP lancée");
+			SetupCommand setupCommand = new SetupCommand(event);
+			event.getChannel().sendMessage(setupCommand.getOutput()).queue();
 		}
 	}
 }

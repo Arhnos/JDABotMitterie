@@ -51,4 +51,26 @@ public class GetVideo {
 		}
 		return res;
 	}
+	
+	public Video findFromUrl(String urlSearch) {
+		Video res = null;
+		try {
+			if(this.con == null || this.con.isClosed()) connect();
+			PreparedStatement ps = this.con.prepareStatement("SELECT * FROM videosmitterie WHERE url= ? LIMIT 1");
+			ps.setString(1, urlSearch);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {				
+				String url = rs.getString(1);
+				String name = rs.getString(2);
+				LocalDate ld = LocalDate.parse(rs.getString(3));
+				LocalTime lt = LocalTime.parse(rs.getString(4));
+				res = new Video(url, name, ld, lt);
+			}
+			this.con.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return res;
+	}
+	
 }
