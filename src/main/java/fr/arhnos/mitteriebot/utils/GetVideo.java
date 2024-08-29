@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class GetVideo {
@@ -50,6 +52,26 @@ public class GetVideo {
 			System.out.println(e.getMessage());
 		}
 		return res;
+	}
+	
+	public List<Video> getLastFiveVideos(){
+		List<Video> result = new ArrayList<Video>();
+		try {
+			if(this.con == null || this.con.isClosed()) connect();
+			PreparedStatement ps = this.con.prepareStatement("SELECT * FROM videosmitterie ORDER BY datesortie DESC LIMIT 5");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {				
+				String url = rs.getString(1);
+				String name = rs.getString(2);
+				LocalDate ld = LocalDate.parse(rs.getString(3));
+				LocalTime lt = LocalTime.parse(rs.getString(4));
+				result.add(new Video(url, name, ld, lt));
+			}
+			this.con.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
 	}
 	
 	public Video findFromUrl(String urlSearch) {

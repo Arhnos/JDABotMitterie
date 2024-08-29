@@ -2,6 +2,7 @@ package fr.arhnos.mitteriebot;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fr.arhnos.mitteriebot.commands.LastfiveCommand;
 import fr.arhnos.mitteriebot.commands.ManCommand;
 import fr.arhnos.mitteriebot.commands.PingCommand;
 import fr.arhnos.mitteriebot.commands.RandomvideoCommand;
@@ -69,6 +70,10 @@ public class App extends ListenerAdapter {
 			System.out.println("Commande SETUP lancée");
 			SetupCommand setupCommand = new SetupCommand(event);
 			event.getChannel().sendMessage(setupCommand.getOutput()).queue();
+		} else if(message.equalsIgnoreCase("!last5")) {
+			System.out.println("Commande LAST5 lancée");
+			LastfiveCommand lastfiveCommand = new LastfiveCommand(event);
+			event.getChannel().sendMessageEmbeds(lastfiveCommand.getOutputEmbed()).queue();
 		}
 	}
 }

@@ -24,6 +24,7 @@ public class ManCommand extends Command {
 		eb.addField(new Field("!subscribe", "Permet d'acquérir le role \"Frères de Mites\" pour avoir les notifications en cas de nouvelle vidéo", false));
 		eb.addField(new Field("!unsubscribe", "L'inverse de !subscribe du coup", false));
 		eb.addField(new Field("!randomvideo", "Donne une vidéo aléatoire", false));
+		eb.addField(new Field("!last5", "Donne les 5 dernières vidéos", false));
 		eb.addField(new Field("!setup <#channel> <@role>", "Permet d'initialiser le channel et le rôle où seront diffusées les notifications (Permissions admins)", false));
 		eb.setUrl("http://sysser.fr/Mitterie");
 		
