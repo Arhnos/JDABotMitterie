@@ -2,10 +2,13 @@ package fr.arhnos.mitteriebot;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fr.arhnos.mitteriebot.commands.AddsentenceCommand;
 import fr.arhnos.mitteriebot.commands.LastfiveCommand;
 import fr.arhnos.mitteriebot.commands.ManCommand;
 import fr.arhnos.mitteriebot.commands.PingCommand;
 import fr.arhnos.mitteriebot.commands.RandomvideoCommand;
+import fr.arhnos.mitteriebot.commands.RemovesentenceCommand;
+import fr.arhnos.mitteriebot.commands.SentenceCommand;
 import fr.arhnos.mitteriebot.commands.SetupCommand;
 import fr.arhnos.mitteriebot.commands.SubscribeCommand;
 import fr.arhnos.mitteriebot.commands.UnsubscribeCommand;
@@ -74,6 +77,18 @@ public class App extends ListenerAdapter {
 			System.out.println("Commande LAST5 lancée");
 			LastfiveCommand lastfiveCommand = new LastfiveCommand(event);
 			event.getChannel().sendMessageEmbeds(lastfiveCommand.getOutputEmbed()).queue();
+		} else if(message.equalsIgnoreCase("!sentence")) {
+			System.out.println("Commande SENTENCE lancée");
+			SentenceCommand sentenceCommand = new SentenceCommand(event);
+			event.getChannel().sendMessage(sentenceCommand.getOutput()).queue();
+		} else if(message.startsWith("!addsentence")) {
+			System.out.println("Commande ADDSENTENCE lancée");
+			AddsentenceCommand addsentenceCommand = new AddsentenceCommand(event);
+			event.getChannel().sendMessage(addsentenceCommand.getOutput()).queue();
+		} else if(message.startsWith("!removesentence")) {
+			System.out.println("Commande REMOVESENTENCE lancée");
+			RemovesentenceCommand removesentenceCommand = new RemovesentenceCommand(event);
+			event.getChannel().sendMessage(removesentenceCommand.getOutput()).queue();
 		}
 	}
 }

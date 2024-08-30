@@ -26,6 +26,9 @@ public class ManCommand extends Command {
 		eb.addField(new Field("!randomvideo", "Donne une vidéo aléatoire", false));
 		eb.addField(new Field("!last5", "Donne les 5 dernières vidéos", false));
 		eb.addField(new Field("!setup <#channel> <@role>", "Permet d'initialiser le channel et le rôle où seront diffusées les notifications (Permissions admins)", false));
+		eb.addField(new Field("!sentence", "Donne une phrase aléatoire", false));
+		eb.addField(new Field("!addsentence <phrase>", "Pour ajouter une phrase", false));
+		eb.addField(new Field("!removesentence <id>", "Supprime la phrase associé à l'id", false));
 		eb.setUrl("http://sysser.fr/Mitterie");
 		
 		
